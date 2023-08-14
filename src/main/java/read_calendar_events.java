@@ -19,6 +19,7 @@ public class read_calendar_events {
     public static void main(String[] args) throws NylasSdkTimeoutError, NylasApiError {
         // Load the .env file
         Dotenv dotenv = Dotenv.load();
+        // Initialize the Nylas client
         NylasClient nylas = new NylasClient.Builder(dotenv.get("V3_TOKEN")).baseUrl(dotenv.get("NYLAS_API_SERVER")).build();
         // Get today's date
         LocalDate today = LocalDate.now();
