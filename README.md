@@ -14,8 +14,7 @@ This sample will show you to read calendars events using the Nylas Java SDK V3.
 You'll need the following values:
 
 ```text
-V3_TOKEN = ""
-NYLAS_API_SERVER = ""
+ACCESS_TOKEN = ""
 CALENDAR_ID = ""
 ```
 
@@ -29,7 +28,7 @@ $ touch .env # Then add your env variables
 
 ```bash
 org.slf4j / slf4j-simple / 1.7.25
-com.nylas.java / nylas_java / 2.0.0
+com.nylas.java / nylas-java-sdk / 1.15.0
 io.github.cdimascio / dotenv-java / 2.3.2
 ```
 
