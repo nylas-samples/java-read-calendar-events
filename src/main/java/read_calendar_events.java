@@ -19,7 +19,8 @@ public class read_calendar_events {
     public static void main(String[] args) throws NylasSdkTimeoutError, NylasApiError {
         // Load the .env file
         Dotenv dotenv = Dotenv.load();
-        NylasClient nylas = new NylasClient.Builder(dotenv.get("V3_TOKEN")).baseUrl(dotenv.get("NYLAS_API_SERVER")).build();
+        // Initialize the Nylas client
+        NylasClient nylas = new NylasClient.Builder(dotenv.get("V3_TOKEN")).apiUri(dotenv.get("NYLAS_API_SERVER")).build();
         // Get today's date
         LocalDate today = LocalDate.now();
         // Set time. As we're using UTC we need to add the hours in difference
@@ -47,11 +48,14 @@ public class read_calendar_events {
             switch (Objects.requireNonNull(event.getWhen().getObject()).getValue()) {
                 case "datespan" -> {
                     // Print event details
+                    When.Datespan date = (When.Datespan) event.getWhen();
+                    System.out.print(" | The date of the event is from: " + date.getStartDate() + " to " + date.getEndDate());
+                }
+                case "date" -> {
                     When.Date date = (When.Date) event.getWhen();
-                    System.out.print(" | The date of the event is: " + date.getDate());
+                    System.out.print(" | The date of the event is: " +date.getDate());
                 }
                 case "timespan" -> {
-                    // Print event details
                     When.Timespan timespan = (When.Timespan) event.getWhen();
                     String initDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date((timespan.getStartTime() * 1000L)));
                     String endDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date((timespan.getEndTime() * 1000L)));
